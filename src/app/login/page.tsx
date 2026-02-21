@@ -64,20 +64,15 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-4">
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl" />
-                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl" />
-            </div>
-
-            <Card className="w-full max-w-md relative z-10 bg-slate-900/80 backdrop-blur-xl border-slate-800 shadow-2xl shadow-emerald-500/5">
+        <div className="min-h-screen flex items-center justify-center bg-background p-4">
+            <Card className="w-full max-w-md relative z-10 bg-card border-border shadow-2xl">
                 <CardHeader className="text-center space-y-4">
-                    <div className="mx-auto w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                        <Truck className="w-8 h-8 text-white" />
+                    <div className="mx-auto w-16 h-16 bg-primary rounded-2xl flex items-center justify-center">
+                        <Truck className="w-8 h-8 text-primary-foreground" />
                     </div>
                     <div>
-                        <CardTitle className="text-2xl font-bold text-white">FleetFlow</CardTitle>
-                        <CardDescription className="text-slate-400">
+                        <CardTitle className="text-2xl font-bold text-foreground">FleetFlow</CardTitle>
+                        <CardDescription className="text-muted-foreground">
                             {isLogin ? "Sign in to your account" : "Create your account"}
                         </CardDescription>
                     </div>
@@ -87,20 +82,20 @@ export default function LoginPage() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {!isLogin && (
                             <div className="space-y-2">
-                                <Label htmlFor="name" className="text-slate-300">Full Name</Label>
+                                <Label htmlFor="name" className="text-foreground">Full Name</Label>
                                 <Input
                                     id="name"
                                     placeholder="John Doe"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required={!isLogin}
-                                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                    className="bg-muted border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20"
                                 />
                             </div>
                         )}
 
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-slate-300">Email</Label>
+                            <Label htmlFor="email" className="text-foreground">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -108,12 +103,12 @@ export default function LoginPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                className="bg-muted border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-slate-300">Password</Label>
+                            <Label htmlFor="password" className="text-foreground">Password</Label>
                             <div className="relative">
                                 <Input
                                     id="password"
@@ -122,12 +117,12 @@ export default function LoginPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:ring-emerald-500/20 pr-10"
+                                    className="bg-muted border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 pr-10"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                                 >
                                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                 </button>
@@ -136,12 +131,12 @@ export default function LoginPage() {
 
                         {!isLogin && (
                             <div className="space-y-2">
-                                <Label htmlFor="role" className="text-slate-300">Role</Label>
+                                <Label htmlFor="role" className="text-foreground">Role</Label>
                                 <Select value={role} onValueChange={setRole}>
-                                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                                    <SelectTrigger className="bg-muted border-border text-foreground">
                                         <SelectValue />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-slate-800 border-slate-700">
+                                    <SelectContent className="bg-card border-border">
                                         <SelectItem value="FLEET_MANAGER">Fleet Manager</SelectItem>
                                         <SelectItem value="DISPATCHER">Dispatcher</SelectItem>
                                         <SelectItem value="SAFETY_OFFICER">Safety Officer</SelectItem>
@@ -152,7 +147,7 @@ export default function LoginPage() {
                         )}
 
                         {error && (
-                            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
                                 {error}
                             </div>
                         )}
@@ -160,11 +155,11 @@ export default function LoginPage() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500 text-white font-medium shadow-lg shadow-emerald-500/20 transition-all duration-300"
+                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300"
                         >
                             {loading ? (
                                 <div className="flex items-center gap-2">
-                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
                                     {isLogin ? "Signing in..." : "Creating account..."}
                                 </div>
                             ) : (
@@ -176,16 +171,16 @@ export default function LoginPage() {
                     <div className="mt-6 text-center">
                         <button
                             onClick={() => { setIsLogin(!isLogin); setError(""); }}
-                            className="text-sm text-slate-400 hover:text-emerald-400 transition-colors"
+                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                         >
                             {isLogin ? "Don't have an account? Register" : "Already have an account? Sign in"}
                         </button>
                     </div>
 
                     {isLogin && (
-                        <div className="mt-4 p-3 rounded-lg bg-slate-800/50 border border-slate-700">
-                            <p className="text-xs text-slate-400 text-center mb-1">Demo Credentials</p>
-                            <p className="text-xs text-slate-500 text-center">admin@fleetflow.com / password123</p>
+                        <div className="mt-4 p-3 rounded-lg bg-muted border border-border">
+                            <p className="text-xs text-muted-foreground text-center mb-1">Demo Credentials</p>
+                            <p className="text-xs text-muted-foreground/70 text-center">admin@fleetflow.com / password123</p>
                         </div>
                     )}
                 </CardContent>

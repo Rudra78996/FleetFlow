@@ -116,8 +116,8 @@ export default function VehiclesPage() {
     if (loading) {
         return (
             <div className="space-y-4">
-                <Skeleton className="h-10 w-full bg-slate-800/50" />
-                {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-16 bg-slate-800/50 rounded-xl" />)}
+                <Skeleton className="h-10 w-full bg-muted" />
+                {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-16 bg-muted rounded-xl" />)}
             </div>
         );
     }
@@ -126,43 +126,43 @@ export default function VehiclesPage() {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-white">Vehicle Registry</h1>
-                    <p className="text-slate-400 text-sm mt-1">Manage your fleet vehicles</p>
+                    <h1 className="text-2xl font-bold text-foreground">Vehicle Registry</h1>
+                    <p className="text-muted-foreground text-sm mt-1">Manage your fleet vehicles</p>
                 </div>
                 <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) { setEditing(null); resetForm(); } }}>
                     <DialogTrigger asChild>
-                        <Button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500 shadow-lg shadow-emerald-500/20">
+                        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                             <Plus className="w-4 h-4 mr-2" /> Add Vehicle
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-slate-900 border-slate-800 text-white max-w-lg">
+                    <DialogContent className="bg-card border-border text-foreground max-w-lg">
                         <DialogHeader>
                             <DialogTitle>{editing ? "Edit Vehicle" : "New Vehicle Registration"}</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Vehicle Name</Label>
+                                    <Label className="text-foreground">Vehicle Name</Label>
                                     <Input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required
-                                        className="bg-slate-800/50 border-slate-700 text-white" placeholder="Volvo FH16" />
+                                        className="bg-muted border-border text-foreground" placeholder="Volvo FH16" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Model</Label>
+                                    <Label className="text-foreground">Model</Label>
                                     <Input value={form.model} onChange={e => setForm({ ...form, model: e.target.value })}
-                                        className="bg-slate-800/50 border-slate-700 text-white" placeholder="FH16 2024" />
+                                        className="bg-muted border-border text-foreground" placeholder="FH16 2024" />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">License Plate</Label>
+                                    <Label className="text-foreground">License Plate</Label>
                                     <Input value={form.licensePlate} onChange={e => setForm({ ...form, licensePlate: e.target.value })} required
-                                        className="bg-slate-800/50 border-slate-700 text-white" placeholder="FL-1001" />
+                                        className="bg-muted border-border text-foreground" placeholder="FL-1001" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Type</Label>
+                                    <Label className="text-foreground">Type</Label>
                                     <Select value={form.type} onValueChange={v => setForm({ ...form, type: v })}>
-                                        <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white"><SelectValue /></SelectTrigger>
-                                        <SelectContent className="bg-slate-800 border-slate-700">
+                                        <SelectTrigger className="bg-muted border-border text-foreground"><SelectValue /></SelectTrigger>
+                                        <SelectContent className="bg-card border-border">
                                             <SelectItem value="TRUCK">Truck</SelectItem>
                                             <SelectItem value="VAN">Van</SelectItem>
                                             <SelectItem value="BIKE">Bike</SelectItem>
@@ -172,27 +172,27 @@ export default function VehiclesPage() {
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Max Capacity (kg)</Label>
+                                    <Label className="text-foreground">Max Capacity (kg)</Label>
                                     <Input type="number" value={form.maxCapacity} onChange={e => setForm({ ...form, maxCapacity: e.target.value })}
-                                        className="bg-slate-800/50 border-slate-700 text-white" placeholder="25000" />
+                                        className="bg-muted border-border text-foreground" placeholder="25000" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Odometer (km)</Label>
+                                    <Label className="text-foreground">Odometer (km)</Label>
                                     <Input type="number" value={form.odometer} onChange={e => setForm({ ...form, odometer: e.target.value })}
-                                        className="bg-slate-800/50 border-slate-700 text-white" placeholder="0" />
+                                        className="bg-muted border-border text-foreground" placeholder="0" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Acquisition Cost</Label>
+                                    <Label className="text-foreground">Acquisition Cost</Label>
                                     <Input type="number" value={form.acquisitionCost} onChange={e => setForm({ ...form, acquisitionCost: e.target.value })}
-                                        className="bg-slate-800/50 border-slate-700 text-white" placeholder="85000" />
+                                        className="bg-muted border-border text-foreground" placeholder="85000" />
                                 </div>
                             </div>
                             <div className="flex gap-3 pt-2">
-                                <Button type="submit" className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500">
+                                <Button type="submit" className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
                                     {editing ? "Update" : "Save"}
                                 </Button>
                                 <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}
-                                    className="border-slate-700 text-slate-300 hover:bg-slate-800">Cancel</Button>
+                                    className="border-border text-foreground hover:bg-accent">Cancel</Button>
                             </div>
                         </form>
                     </DialogContent>
@@ -200,17 +200,17 @@ export default function VehiclesPage() {
             </div>
 
             {/* Filters */}
-            <Card className="bg-slate-900/80 border-slate-800 rounded-2xl">
+            <Card className="bg-card border-border rounded-2xl">
                 <CardContent className="p-4">
                     <div className="flex flex-col sm:flex-row gap-3">
                         <div className="relative flex-1">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                             <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search vehicles..."
-                                className="pl-10 bg-slate-800/50 border-slate-700 text-white" />
+                                className="pl-10 bg-muted border-border text-foreground" />
                         </div>
                         <Select value={typeFilter} onValueChange={setTypeFilter}>
-                            <SelectTrigger className="w-[140px] bg-slate-800/50 border-slate-700 text-white"><SelectValue placeholder="Type" /></SelectTrigger>
-                            <SelectContent className="bg-slate-800 border-slate-700">
+                            <SelectTrigger className="w-[140px] bg-muted border-border text-foreground"><SelectValue placeholder="Type" /></SelectTrigger>
+                            <SelectContent className="bg-card border-border">
                                 <SelectItem value="all">All Types</SelectItem>
                                 <SelectItem value="TRUCK">Truck</SelectItem>
                                 <SelectItem value="VAN">Van</SelectItem>
@@ -218,8 +218,8 @@ export default function VehiclesPage() {
                             </SelectContent>
                         </Select>
                         <Select value={statusFilter} onValueChange={setStatusFilter}>
-                            <SelectTrigger className="w-[150px] bg-slate-800/50 border-slate-700 text-white"><SelectValue placeholder="Status" /></SelectTrigger>
-                            <SelectContent className="bg-slate-800 border-slate-700">
+                            <SelectTrigger className="w-[150px] bg-muted border-border text-foreground"><SelectValue placeholder="Status" /></SelectTrigger>
+                            <SelectContent className="bg-card border-border">
                                 <SelectItem value="all">All Status</SelectItem>
                                 <SelectItem value="AVAILABLE">Available</SelectItem>
                                 <SelectItem value="ON_TRIP">On Trip</SelectItem>
@@ -232,52 +232,52 @@ export default function VehiclesPage() {
             </Card>
 
             {/* Vehicle Table */}
-            <Card className="bg-slate-900/80 border-slate-800 rounded-2xl">
+            <Card className="bg-card border-border rounded-2xl">
                 <CardContent className="p-0">
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b border-slate-800">
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">ID</th>
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">Name/Model</th>
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">Type</th>
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">Capacity</th>
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">Odometer</th>
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">Status</th>
-                                    <th className="text-left py-3 px-4 text-slate-400 font-medium">Actions</th>
+                                <tr className="border-b border-border">
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">ID</th>
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Name/Model</th>
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Type</th>
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Capacity</th>
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Odometer</th>
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Status</th>
+                                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {vehicles.map((v) => (
-                                    <tr key={v.id} className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
-                                        <td className="py-3 px-4 text-slate-300 font-mono text-xs">{v.licensePlate}</td>
+                                    <tr key={v.id} className="border-b border-border/50 hover:bg-accent transition-colors">
+                                        <td className="py-3 px-4 text-muted-foreground font-mono text-xs">{v.licensePlate}</td>
                                         <td className="py-3 px-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center">
-                                                    <Truck className="w-4 h-4 text-slate-400" />
+                                                <div className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center">
+                                                    <Truck className="w-4 h-4 text-muted-foreground" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-white font-medium">{v.name}</p>
-                                                    <p className="text-xs text-slate-500">{v.model}</p>
+                                                    <p className="text-foreground font-medium">{v.name}</p>
+                                                    <p className="text-xs text-muted-foreground">{v.model}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="py-3 px-4 text-slate-300">{v.type}</td>
-                                        <td className="py-3 px-4 text-slate-300">{v.maxCapacity.toLocaleString()} kg</td>
-                                        <td className="py-3 px-4 text-slate-300">{v.odometer.toLocaleString()} km</td>
+                                        <td className="py-3 px-4 text-muted-foreground">{v.type}</td>
+                                        <td className="py-3 px-4 text-muted-foreground">{v.maxCapacity.toLocaleString()} kg</td>
+                                        <td className="py-3 px-4 text-muted-foreground">{v.odometer.toLocaleString()} km</td>
                                         <td className="py-3 px-4"><StatusBadge status={v.status} /></td>
                                         <td className="py-3 px-4">
                                             <div className="flex items-center gap-1">
                                                 <Button variant="ghost" size="icon" onClick={() => handleEdit(v)}
-                                                    className="h-8 w-8 text-slate-400 hover:text-white hover:bg-slate-800">
+                                                    className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent">
                                                     <Pencil className="w-3.5 h-3.5" />
                                                 </Button>
                                                 <Button variant="ghost" size="icon" onClick={() => handleToggleStatus(v)}
-                                                    className="h-8 w-8 text-slate-400 hover:text-amber-400 hover:bg-slate-800" title={v.status === "AVAILABLE" ? "Retire" : "Activate"}>
+                                                    className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent" title={v.status === "AVAILABLE" ? "Retire" : "Activate"}>
                                                     <Truck className="w-3.5 h-3.5" />
                                                 </Button>
                                                 <Button variant="ghost" size="icon" onClick={() => handleDelete(v.id)}
-                                                    className="h-8 w-8 text-slate-400 hover:text-red-400 hover:bg-slate-800">
+                                                    className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-accent">
                                                     <Trash2 className="w-3.5 h-3.5" />
                                                 </Button>
                                             </div>
@@ -287,7 +287,7 @@ export default function VehiclesPage() {
                             </tbody>
                         </table>
                         {vehicles.length === 0 && (
-                            <div className="text-center py-12 text-slate-500">
+                            <div className="text-center py-12 text-muted-foreground">
                                 <Truck className="w-12 h-12 mx-auto mb-3 opacity-50" />
                                 <p>No vehicles found</p>
                             </div>

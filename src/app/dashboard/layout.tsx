@@ -27,19 +27,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     if (!mounted || !isAuthenticated) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-950">
-                <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+            <div className="min-h-screen flex items-center justify-center bg-background">
+                <div className="w-8 h-8 border-2 border-muted-foreground/30 border-t-foreground rounded-full animate-spin" />
             </div>
         );
     }
 
     return (
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-            <div className="flex h-screen bg-slate-950 text-white overflow-hidden">
+            <div className="flex h-screen bg-background text-foreground overflow-hidden">
                 <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} currentPath={pathname} />
                 <div className="flex-1 flex flex-col overflow-hidden">
                     <Navbar onMenuToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
-                    <main className="flex-1 overflow-auto p-6 bg-slate-950">
+                    <main className="flex-1 overflow-auto p-6 bg-background">
                         {children}
                     </main>
                 </div>
