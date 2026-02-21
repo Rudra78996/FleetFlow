@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("FLEET_MANAGER") // FLEET_MANAGER, DISPATCHER, SAFETY_OFFICER, FINANCIAL_ANALYST
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vehicle {
+  id              String   @id @default(cuid())
+  name            String
+  model           String
+  licensePlate    String   @unique
+  type            String   @default("TRUCK") // TRUCK, VAN, BIKE
+  maxCapacity     Float    @default(0)
+  odometer        Float    @default(0)
+  initialOdometer Float    @default(0)
+  acquisitionCost Float    @default(0)
+  status          String   @default("AVAILABLE") // AVAILABLE, ON_TRIP, IN_SHOP, RETIRED
+  region          String   @default("Default")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  trips           Trip[]
+  maintenanceLogs MaintenanceLog[]
+  fuelLogs        FuelLog[]
+  expenses        Expense[]
+}
+
+model Driver {
+  id              String   @id @default(cuid())
+  name            String
+  licenseNumber   String   @unique
+  licenseExpiry   DateTime
+  licenseCategory String   @default("C") // A, B, C, D, E
+  status          String   @default("AVAILABLE") // AVAILABLE, ON_DUTY, OFF_DUTY, SUSPENDED
+  safetyScore     Float    @default(100)
+  completionRate  Float    @default(100)
+  complaints      Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  trips    Trip[]
+  fuelLogs FuelLog[]
+  expenses Expense[]
+}
+
+model Trip {
+  id               String    @id @default(cuid())
+  vehicleId        String
+  driverId         String
+  origin           String
+  destination      String
+  cargoWeight      Float     @default(0)
+  estimatedFuelCost Float    @default(0)
+  actualFuelCost   Float     @default(0)
+  distance         Float     @default(0)
+  revenue          Float     @default(0)
+  status           String    @default("DRAFT") // DRAFT, DISPATCHED, COMPLETED, CANCELLED
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  completedAt      DateTime?
+
+  vehicle  Vehicle   @relation(fields: [vehicleId], references: [id])
+  driver   Driver    @relation(fields: [driverId], references: [id])
+  fuelLogs FuelLog[]
+  expenses Expense[]
+}
+
+model MaintenanceLog {
+  id          String   @id @default(cuid())
+  vehicleId   String
+  serviceType String
+  cost        Float    @default(0)
+  date        DateTime @default(now())
+  notes       String   @default("")
+  status      String   @default("IN_PROGRESS") // IN_PROGRESS, COMPLETED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+}
+
+model FuelLog {
+  id        String   @id @default(cuid())
+  tripId    String?
+  vehicleId String
+  driverId  String?
+  liters    Float    @default(0)
+  cost      Float    @default(0)
+  distance  Float    @default(0)
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  trip    Trip?   @relation(fields: [tripId], references: [id])
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+  driver  Driver? @relation(fields: [driverId], references: [id])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  tripId      String?
+  vehicleId   String?
+  driverId    String?
+  category    String   @default("FUEL") // FUEL, MAINTENANCE, TOLL, OTHER
+  amount      Float    @default(0)
+  description String   @default("")
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  trip    Trip?    @relation(fields: [tripId], references: [id])
+  vehicle Vehicle? @relation(fields: [vehicleId], references: [id])
+  driver  Driver?  @relation(fields: [driverId], references: [id])
+}
